@@ -1,168 +1,175 @@
-@extends('layouts.app')
-@section('title', 'Register')
-@section('content')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bajualang</title>
+
+    <!-- Icon -->
+    <link rel="icon" href="images/logo_title.png" type="image/x-icon">
+
+    <!-- Styles -->
+    <link rel='stylesheet' href='{{asset("css/app.css")}}' type='text/css' media='screen' />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/cefd38f320.js" crossorigin="anonymous"></script>
+</head>
 
 <style>
-    /* The message box is shown when the user clicks on the password field */
-    #message {
-        display: none;
-        background: #f1f1f1;
-        color: #000;
+    .btn-no-fill {
+        border: 1px solid #F47C7C;
+        border-radius: 8px;
+        color: #F47C7C;
+        background: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .btn-default {
+        background-color: #F47C7C;
+        border-radius: 8px;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        border: none;
+    }
+
+    .divider {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        margin: 0 30px;
+    }
+
+    .cart {
+        color: #232323;
+    }
+
+    /* bagian cari */
+    .search {
+        width: 100%;
         position: relative;
+        display: flex;
+    }
+
+    .searchTerm {
+        width: 100%;
+        border: 1px solid #E5E5E5;
+        border-right: none;
         padding: 5px;
-        margin-top: 5px;
+        height: 36px;
+        border-radius: 5px 0 0 5px;
+        outline: none;
+        color: #E5E5E5;
     }
 
-    #message p {
-        font-size: 12px;
+    .searchTerm:focus {
+        color: #E5E5E5;
     }
 
-    #message h3 {
-        font-size: 15px;
+    .searchButton {
+        width: 40px;
+        height: 36px;
+        border: 1px solid #E5E5E5;
+        background: #E5E5E5;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.2);
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        font-size: 20px;
     }
 
-    /* Add a green text color and a checkmark when the requirements are right */
-    .valid {
-        color: green;
+    .wrap {
+        width: 30%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
-    .valid:before {
-        position: relative;
-        left: -35px;
+    /* end cari */
+
+    /* about */
+    .nav-about {
+        background: #F7FAF9;
+        padding: 10px 60px;
     }
 
-    /* Add a red text color and an "x" icon when the requirements are wrong */
-    .invalid {
-        color: red;
+    .link a {
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.5);
     }
 
-    .invalid:before {
-        position: relative;
-        left: -35px;
+    /* end about */
+
+    a {
+        text-decoration: none;
     }
 </style>
-<div class="container-fluid" style="height: 100vh">
-    <div class="row" style="height: 100%">
-        <div class="col-6 bg-primary p-0"
-            style="background-image:url({{asset('images/banner-login.png')}});background-size:cover;background-position:auto;">
+
+<body style="min-height: 100vh">
+    <nav class="navbar navbar-expand-lg" style="height: 8vh; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.04); ">
+        <div class="container-fluid px-5 m-0">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="{{route('welcome')}}">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <img src="{{asset('images/logo.svg')}}" alt="">
+                <ul class="navbar-nav ms-auto">
+                    <a class="" href="{{ route('login') }}" style="text-decoration: none; color: #232323">Daftar akun Bajualang</a>
+                </ul>
+            </div>
         </div>
-        <div class=" col-6 d-flex align-items-center">
-            <div class="card mx-auto d-flex justify-content-center" style="width:24rem;border-radius: 30px">
-                <h2 class="text-center my-4" style="font-size:30px;font-weight:bold;">Register</h2>
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
-                    <div class="form-group mx-5 my-3">
-                        <label for="name" class="text-muted">{{ __('Nama Lengkap') }}</label>
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+    </nav>
+    <div class="container-fluid" style="height: 92vh;">
+        <div class="row" style="height: 100%;">
+            <div class="col d-flex flex-column justify-content-center">
+                <div class="mx-auto">
+                    <img src="{{asset('images/Frame 177.png')}}" alt="" width="380">
+                    <h3>Cari Barang Thrift Makin Gampang <br> Cuma Di Bajualang</h3>
+                    <p>Daftarkan akunmu dan mulai eskplorasi di bajualang!</p>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <div class="card py-5" style="width: 450px;box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);">
+                    <div class="text-center">
+                        <h3 class="">Daftar Akun Baru</h3>
+                        <p>Sudah punya akun? <b style="color:#F47C7C;">Masuk</b></p>
                     </div>
-                    <div class="form-group mx-5 my-3">
-                        <label for="email" class="text-muted">{{ __('Email Address') }}</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                    <div class="d-flex justify-content-between mx-auto" style="width: 60%;">
+                        <a href="" class="btn btn-light"><i class="fab fa-facebook-f mr-3"></i>Facebook</a>
+                        <a href="" class="btn btn-light"><i class="fab fa-google mr-3"></i>Google</a>
                     </div>
-                    <div class="form-group mx-5 my-3">
-                        <label for="password" class="text-muted">{{ __('Password') }}</label>
-                        <input id="psw" type="password" class="form-control @error('password') is-invalid @enderror"
-                            name="password" autocomplete="current-password"
-                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                        <div id="message">
-                            <h3>Password must contain the following:</h3>
-                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                            <p id="number" class="invalid">A <b>number</b></p>
-                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+
+                    <hr class="my-5 w-75 mx-auto">
+
+                    <form action="">
+                        <div class="form-group w-75 mx-auto">
+                            <label for="exampleInputPassword1">Email atau Nomer Telefon</label>
+                            <input type="email" name="email" class="form-control" id="exampleInputPassword1">
                         </div>
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group mx-5 my-3">
-                        <label for="password" class="text-muted">{{ __('Confirm Password') }}</label>
-                        <input id="psw" type="password" class="form-control" name="password_confirmation"
-                            autocomplete="current-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                    </div>
-                    <div class="form-group d-flex flex-column align-items-center">
-                        <button type="submit" class="btn btn-primary" style="width: 180px;border-radius:30px">
-                            {{ __('Register') }}
-                        </button>
-                        <p class="mt-2">Sudah memiliki akun? <a href="{{route('login')}}">Login</a></p>
-                    </div>
-                </form>
+                        <div class="form-group w-75 mx-auto">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                        </div>
+
+                        <div class="w-75 mx-auto">
+                            <button type="submit" class="btn-default w-100">Daftar</button>
+                        </div>
+
+                        <div class="text-center my-4 mx-3">
+                            <p>Dengan Mendaftar, kamu menyetujui <span style="color: #F47C7C;">Syarat, ketentuan dan kebijakan</span> dari bajualang</p>
+                        </div>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>
 
-<script>
-    var myInput = document.getElementById("psw");
-    var letter = document.getElementById("letter");
-    var capital = document.getElementById("capital");
-    var number = document.getElementById("number");
-    var length = document.getElementById("length");
-
-    // When the user clicks on the password field, show the message box
-    myInput.onfocus = function() {
-        document.getElementById("message").style.display = "block";
-    }
-
-    // When the user clicks outside of the password field, hide the message box
-    myInput.onblur = function() {
-        document.getElementById("message").style.display = "none";
-    }
-
-    // When the user starts to type something inside the password field
-    myInput.onkeyup = function() {
-        // Validate lowercase letters
-        var lowerCaseLetters = /[a-z]/g;
-        if (myInput.value.match(lowerCaseLetters)) {
-            letter.classList.remove("invalid");
-            letter.classList.add("valid");
-        } else {
-            letter.classList.remove("valid");
-            letter.classList.add("invalid");
-        }
-
-        // Validate capital letters
-        var upperCaseLetters = /[A-Z]/g;
-        if (myInput.value.match(upperCaseLetters)) {
-            capital.classList.remove("invalid");
-            capital.classList.add("valid");
-        } else {
-            capital.classList.remove("valid");
-            capital.classList.add("invalid");
-        }
-
-        // Validate numbers
-        var numbers = /[0-9]/g;
-        if (myInput.value.match(numbers)) {
-            number.classList.remove("invalid");
-            number.classList.add("valid");
-        } else {
-            number.classList.remove("valid");
-            number.classList.add("invalid");
-        }
-
-        // Validate length
-        if (myInput.value.length >= 8) {
-            length.classList.remove("invalid");
-            length.classList.add("valid");
-        } else {
-            length.classList.remove("valid");
-            length.classList.add("invalid");
-        }
-    }
-</script>
-@endsection
+</html>
