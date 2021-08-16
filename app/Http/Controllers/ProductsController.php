@@ -100,22 +100,17 @@ class ProductsController extends Controller
      */
     public function update($id, Request $request)
     {
-        if ($files = $request->file('img_path')) {
-            $destinationPath = 'public/images/';
-            $file = $request->file('img_path');
-            // upload path         
-            $profileImage = rand(1000, 20000) . "." .
-                $files->getClientOriginalExtension();
-            $pathImg = $file->storeAs('images', $profileImage);
-            $files->move($destinationPath, $profileImage);
-        }
-
         $products = Products::find($id);
         $products->name = $request->name;
+        $products->condition = $request->condition;
+        $products->category = $request->category;
+        $products->weight = $request->weight;
+        $products->price = $request->price;
+        $products->product_from = $request->product_from;
+        $products->brand = $request->brand;
         $products->price = $request->price;
         $products->description = $request->description;
         $products->stock = $request->stock;
-        $products->img_path = request()->$pathImg;
         $products->save();
 
         return redirect(route('admin.home'));
