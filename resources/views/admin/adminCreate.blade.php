@@ -50,10 +50,15 @@
     </div>
 
     <div class="form-group">
+        <label for="exampleInputEmail1">Discount</label>
+        <input type="number" name="discount" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="0" required>
+    </div>
+
+    <div class="form-group">
         <label for="exampleInputPassword1">Price</label>
         <div class="input-group-prepend">
             <span class="input-group-text">Rp. </span>
-            <input type="text" name="price" class="form-control" id="exampleInputPassword1" required>
+            <input type="number" name="price" class="form-control" id="exampleInputPassword1" required>
         </div>
     </div>
 
@@ -64,7 +69,7 @@
 
     <div class="form-group">
         <label for="exampleInputEmail1">Stock</label>
-        <input type="text" name="stock" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+        <input type="number" name="stock" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
     </div>
 
     <div class="form-group">
