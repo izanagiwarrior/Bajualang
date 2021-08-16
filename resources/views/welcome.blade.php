@@ -100,8 +100,11 @@
         text-decoration: none;
         color: rgba(0, 0, 0, 0.5);
     }
-
     /* end about */
+
+    a{
+        text-decoration: none;
+    }
 </style>
 
 <body style="min-height: 100vh">
@@ -155,7 +158,7 @@
                         @csrf
                     </form>
                     @else
-                    <a class="nav-item nav-link px-4 btn-no-fill" href="{{ route('login') }}">Masuk</a>
+                    <a class="nav-item nav-link px-4 btn-no-fill mr-4" href="{{ route('login') }}">Masuk</a>
                     @if (Route::has('register'))
                     <a class="nav-item nav-link px-4 btn-default" href="{{ route('register') }}">Daftar</a>
                     @endif
@@ -484,7 +487,7 @@
     </div>
     <!-- footer -->
     <div class="container-fluid mt-5" style="border-top: 4px solid #F47C7C;">
-        <div class="row">
+        <div class="row py-5">
             <div class="col-4">
                 <img src="{{asset('images/logo.svg')}}" alt="">
                 <p style="font-size: 15px;" class="text-muted">Cari barang thrift kesukaan jadi <br />lebih gampang.</p>
@@ -496,17 +499,26 @@
                     <i class="fab fa-discord"></i>
                 </div>
             </div>
-            <div class="col-2">
-
+            <div class="col-2 d-flex flex-column">
+                <h5>Layanan Pengguna</h5>
+                <a href="" class="text-muted">Bantuan</a>
+                <a href="" class="text-muted">FAQ</a>
+                <a href="" class="text-muted">Cara Berbelanja</a>
+                <a href="" class="text-muted">Cara Berjualan</a>
+                <a href="" class="text-muted">Hubungi Kami</a>
+            </div>
+            <div class="col-2 d-flex flex-column">
+            <h5>Info Bajualang</h5>
+                <a href="" class="text-muted">Tentang Bajualang</a>
+                <a href="" class="text-muted">Karir</a>
+                <a href="" class="text-muted">Kebijakan Privasi</a>
+                <a href="" class="text-muted">Blog</a>
+            </div>
+            <div class="col-2 d-flex flex-column">
+            <h5>Metode Pembayaran</h5>
             </div>
             <div class="col-2">
-
-            </div>
-            <div class="col-2">
-
-            </div>
-            <div class="col-2">
-
+            <h5>Pengiriman</h5>
             </div>
         </div>
     </div>
