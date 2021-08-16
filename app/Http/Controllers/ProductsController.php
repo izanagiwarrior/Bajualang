@@ -6,6 +6,7 @@ use App\Models\Products;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Order;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -33,23 +34,23 @@ class ProductsController extends Controller
 
     public function createProcess(Request $request)
     {
-        if ($files = $request->file('img_path')) {
-            $destinationPath = 'public/images/';
-            $file = $request->file('img_path');
-            // upload path         
-            $profileImage = rand(1000, 20000) . "." .
-                $files->getClientOriginalExtension();
-            $pathImg = $file->storeAs('images', $profileImage);
-            $files->move($destinationPath, $profileImage);
-        }
+        // Image
+        $image = Storage::put('public/content_image', $request->file('foto'));
+
 
 
         $products = new Products();
         $products->name = $request->name;
+        $products->condition = $request->condition;
+        $products->category = $request->category;
+        $products->weight = $request->weight;
+        $products->price = $request->price;
+        $products->product_from = $request->product_from;
+        $products->brand = $request->brand;
         $products->price = $request->price;
         $products->description = $request->description;
         $products->stock = $request->stock;
-        $products->img_path = $pathImg;
+        $products->img_path = $image;
         $products->save();
 
         return redirect(route('admin.home'));
@@ -148,6 +149,4 @@ class ProductsController extends Controller
 
         return redirect(route('admin.user'));
     }
-
-    
 }
