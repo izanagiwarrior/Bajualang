@@ -54,8 +54,13 @@
         <label for="exampleInputPassword1">Price</label>
         <div class="input-group-prepend">
             <span class="input-group-text">Rp. </span>
-            <input type="text" value="{{ $products->price }}" name="price" class="form-control" id="exampleInputPassword1">
+            <input type="number" value="{{ $products->price }}" name="price" class="form-control" id="exampleInputPassword1">
         </div>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Discount</label>
+        <input type="number" name="discount" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $products->discount }}" required>
     </div>
 
     <div class="form-group">
@@ -65,7 +70,7 @@
 
     <div class="form-group">
         <label for="exampleInputEmail1">Stock</label>
-        <input type="text" value="{{ $products->stock }}" name="stock" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="number" value="{{ $products->stock }}" name="stock" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
     </div>
 
     <div class="form-group">

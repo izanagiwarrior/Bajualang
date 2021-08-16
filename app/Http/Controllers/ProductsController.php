@@ -48,6 +48,7 @@ class ProductsController extends Controller
         $products->product_from = $request->product_from;
         $products->brand = $request->brand;
         $products->price = $request->price;
+        $products->discount = $request->discount;
         $products->description = $request->description;
         $products->stock = $request->stock;
         $products->img_path = $image;
@@ -106,6 +107,7 @@ class ProductsController extends Controller
         $products->category = $request->category;
         $products->weight = $request->weight;
         $products->price = $request->price;
+        $products->discount = $request->discount;
         $products->product_from = $request->product_from;
         $products->brand = $request->brand;
         $products->price = $request->price;

@@ -17,7 +17,11 @@ use App\Models\Products;
 // Landing Page
 Route::get('/', function () {
     $products = Products::all();
-    return view('welcome', compact('products'));
+    $sedang_promo = Products::orderBy('discount', 'DESC')->limit(4)->get();
+    $fashion_pria = Products::where('category', 'Fashion Pria')->limit(4)->get();
+    $banyak_dicari = Products::orderBy('likes', 'DESC')->limit(4)->get();
+
+    return view('welcome', compact('products','sedang_promo','fashion_pria','banyak_dicari'));
 })->name('welcome');
 
 // AUTH
